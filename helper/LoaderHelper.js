@@ -1,0 +1,1 @@
+var loadHtml=function(n,t){var e=document.getElementById("fixture-holder");return fetch(n).then(function(n){return n.text()}).then(function(n){e.innerHTML=n,t()}).catch(function(n){console.error(n)})};
