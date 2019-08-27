@@ -1,1 +1,105 @@
-describe("EXERCÍCIO 2 - Headings",function(){beforeAll(function(e){var t=this;loadHtml("src/exe2.html",function(){t.headings=document.querySelectorAll("#fixture-holder > *"),e()})}),it("Devem haver 19 headings",function(){expect(this.headings.length).toBe(19)}),it("Heading 1 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[0];expect(e.nodeName).toBe("H1"),expect(e.innerText).toBe("1. Introdução")}),it("Heading 2 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[1];expect(e.nodeName).toBe("H1"),expect(e.innerText).toBe("2. Objetivos")}),it("Heading 3 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[2];expect(e.nodeName).toBe("H2"),expect(e.innerText).toBe("2.1 Objetivo Geral")}),it("Heading 4 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[3];expect(e.nodeName).toBe("H2"),expect(e.innerText).toBe("2.2 Objetivo Específico")}),it("Heading 5 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[4];expect(e.nodeName).toBe("H3"),expect(e.innerText).toBe("2.2.1 Primeiro Específico")}),it("Heading 6 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[5];expect(e.nodeName).toBe("H3"),expect(e.innerText).toBe("2.2.2 Segundo Específico")}),it("Heading 7 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[6];expect(e.nodeName).toBe("H1"),expect(e.innerText).toBe("3. Revisão da Literatura")}),it("Heading 8 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[7];expect(e.nodeName).toBe("H2"),expect(e.innerText).toBe("3.1 Como fazer as citações no texto")}),it("Heading 9 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[8];expect(e.nodeName).toBe("H3"),expect(e.innerText).toBe("3.1.1 Citações diretas")}),it("Heading 10 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[9];expect(e.nodeName).toBe("H4"),expect(e.innerText).toBe("3.1.1.1 Citação direta de livro")}),it("Heading 11 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[10];expect(e.nodeName).toBe("H5"),expect(e.innerText).toBe("Imagem 1 - Exemplo de citação direta de livro")}),it("Heading 12 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[11];expect(e.nodeName).toBe("H4"),expect(e.innerText).toBe("3.1.1.2 Citação direta de artigo")}),it("Heading 13 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[12];expect(e.nodeName).toBe("H5"),expect(e.innerText).toBe("Artigos em Inglês")}),it("Heading 14 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[13];expect(e.nodeName).toBe("H6"),expect(e.innerText).toBe("Imagem 2 - Exemplo de citação direta de artigo em inglês")}),it("Heading 15 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[14];expect(e.nodeName).toBe("H5"),expect(e.innerText).toBe("Artigos em Português")}),it("Heading 16 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[15];expect(e.nodeName).toBe("H6"),expect(e.innerText).toBe("Imagem 3 - Exemplo de citação direta de artigo em português")}),it("Heading 17 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[16];expect(e.nodeName).toBe("H3"),expect(e.innerText).toBe("3.1.2 Citações indiretas")}),it("Heading 18 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[17];expect(e.nodeName).toBe("H4"),expect(e.innerText).toBe("Imagem 4 - Exemplo de citação indireta")}),it("Heading 19 deve estar escrito corretamente e com nível apropriado",function(){var e=this.headings[18];expect(e.nodeName).toBe("H1"),expect(e.innerText).toBe("4. Conclusão")})});
+describe('Exercício 2', () => {
+
+    beforeAll((done) => preparar(done))
+
+    beforeEach((done) => carregar('exe2.html', done))
+
+    describe('Títulos de primeiro nível', () => {
+        beforeEach(() => this.h1 = document.querySelectorAll('#fixtures h1'))
+        it('devem haver 4 títulos de primeiro nível', () => {
+            expect(this.h1.length)
+            .withContext('Títulos de primeiro nível são os que possuem um único número na frente')
+            .toBe(4)
+        })
+        it('os textos devem estar corretos', () => {
+            expect(this.h1[0].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Introdução')
+            expect(this.h1[1].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Objetivos')
+            expect(this.h1[2].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Revisão da Literatura')
+            expect(this.h1[3].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Conclusão')
+        })
+    })
+    describe('Títulos de segundo nível', () => {
+        beforeEach(() => this.h2 = document.querySelectorAll('#fixtures h2'))
+        it('devem haver 3 títulos de segundo nível', () => {
+            expect(this.h2.length)
+            .withContext('Títulos de segundo nível são os que possuem dois números na frente')
+            .toBe(3)
+        })
+        it('os textos devem estar corretos', () => {
+            expect(this.h2[0].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Objetivo Geral')
+            expect(this.h2[1].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Objetivo Específico')
+            expect(this.h2[2].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Como fazer as citações no texto')
+        })
+    })
+    describe('Títulos de terceiro nível', () => {
+        beforeEach(() => this.h3 = document.querySelectorAll('#fixtures h3'))
+        it('devem haver 4 títulos de terceiro nível', () => {
+            expect(this.h3.length)
+            .withContext('Títulos de terceiro nível são os que possuem três números na frente')
+            .toBe(4)
+        })
+        it('os textos devem estar corretos', () => {
+            expect(this.h3[0].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Primeiro Específico')
+            expect(this.h3[1].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Segundo Específico')
+            expect(this.h3[2].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Citações diretas')
+            expect(this.h3[3].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Citações indiretas')
+        })
+    })
+    describe('Títulos de quarto nível', () => {
+        beforeEach(() => this.h4 = document.querySelectorAll('#fixtures h4'))
+        it('devem haver 3 títulos de quarto nível', () => {
+            expect(this.h4.length)
+            .withContext('Títulos de quarto nível são os que possuem quatro números na frente')
+            .toBe(3)
+        })
+        it('os textos devem estar corretos', () => {
+            expect(this.h4[0].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Citação direta de livro')
+            expect(this.h4[1].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Citação direta de artigo')
+            expect(this.h4[2].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Exemplos de citação indireta')
+        })
+    })
+    describe('Títulos de quinto nível', () => {
+        beforeEach(() => this.h5 = document.querySelectorAll('#fixtures h5'))
+        it('devem haver 3 títulos de quinto nível', () => {
+            expect(this.h5.length)
+            .withContext('Títulos de quinto nível são os que não possuem números e estão logo abaixo dos de quarto nível')
+            .toBe(3)
+        })
+        it('os textos devem estar corretos', () => {
+            expect(this.h5[0].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Imagem 1 - Exemplo de citação direta de livro')
+            expect(this.h5[1].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Artigos em Inglês')
+            expect(this.h5[2].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Artigos em Português')
+        })
+    })
+    describe('Títulos de sexto nível', () => {
+        beforeEach(() => this.h6 = document.querySelectorAll('#fixtures h6'))
+        it('devem haver 2 títulos de sexto nível', () => {
+            expect(this.h6.length)
+            .withContext('Títulos de sexto nível são os que não possuem números e estão logo abaixo dos de quinto nível')
+            .toBe(2)
+        })
+        it('os textos devem estar corretos', () => {
+            expect(this.h6[0].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Imagem 2 - Exemplo de citação direta de artigo em inglês')
+            expect(this.h6[1].innerText).withContext('Respeite as maiúsculas e minúsculas. Não escreva os números da frente')
+            .toBe('Imagem 3 - Exemplo de citação direta de artigo em português')
+        })
+    })
+})
