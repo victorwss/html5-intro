@@ -62,11 +62,11 @@ describe('Exercício 4', () => {
             .withContext("Respeite o texto em termos de maiúsculas e minúsculas")
             .toBe("Valor")
         })
-        it('primeira célula deve expandir em quatro linhas', () => {
+        it('primeira célula deve expandir em cinco linhas', () => {
             this.th = this.tr.querySelector('th:nth-child(1)')
             expect(this.th.rowSpan)
-            .withContext('Configure a tag para expandir em quatro linhas')
-            .toBe(4)
+            .withContext('Configure a tag para expandir em cinco linhas')
+            .toBe(5)
         })
     })
     describe("Terceira Linha", () => {
@@ -90,7 +90,7 @@ describe('Exercício 4', () => {
             .toBe("3 horas e 25 minutos")
             expect(this.tds[3].innerText)
             .withContext("Respeite o texto em termos de maiúsculas e minúsculas")
-            .toBe("250,00")
+            .toBe("350,00")
         })
     })
     describe("Quarta Linha", () => {
