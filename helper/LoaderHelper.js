@@ -6,11 +6,8 @@ const preparar = (done) => {
 }
 
 const carregar = (fixture, done) => {
-    fixture = window.location.pathname === "/SpecRunner.html" ? 
-              'src/'+fixture : 
-              fixture
-    
-    fetch(fixture)
+
+    fetch('src/'+fixture)
         .then((response) => response.text())
         .then((html) => {
             document.querySelector('div#fixtures').innerHTML = html
