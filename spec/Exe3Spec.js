@@ -1,1 +1,76 @@
-describe("EXERCÍCIO 3 - Listas",function(){beforeAll(function(e){var t=this;loadHtml("src/exe3.html",function(){t.list=document.querySelector("ol"),e()})}),it("Lista deve estar definida corretamente",function(){expect(this.list).toBeTruthy()}),it("Listas devem possuir apenas itens de listas como filhos",function(){this.list.childNodes.forEach(function(e){1===e.nodeType&&expect(e.nodeName).toBe("LI")})}),it("Lista principal deve ter 3 itens escritos corretamente",function(){var e=this.list.querySelectorAll(" :scope > li");expect(e.length).toBe(3),e.forEach(function(e,t){0===t&&expect(e.innerText).toBe("Fechar contrato"),1===t&&expect(e.innerText.substring(0,18)).toBe("Análise de sistema"),2===t&&expect(e.innerText).toBe("Treinamento dos usuários")})}),it("Lista secundária deve ter 3 itens escritos corretamente",function(){var e=this.list.querySelectorAll(" :scope > li > ol > li");expect(e.length).toBe(3),e.forEach(function(e,t){0===t&&expect(e.innerText.substring(0,20)).toBe("Avaliação da empresa"),1===t&&expect(e.innerText).toBe("Programação"),2===t&&expect(e.innerText).toBe("Aprovação do projeto")})}),it("Lista terciária deve ter 2 itens escritos corretamente",function(){var e=this.list.querySelectorAll(" :scope > li > ol > li > ol > li");expect(e.length).toBe(2),e.forEach(function(e,t){0===t&&expect(e.innerText).toBe("Entrevista com funcionários"),1===t&&expect(e.innerText).toBe("Pesquisa de documentação da empresa")})})});
+describe('Exercício 3', () => {
+
+    beforeAll((done) => preparar(done))
+
+    beforeEach((done) => carregar('exe3.html', done))
+
+    describe('Lista principal', () => {
+        beforeEach(() => this.ol = document.querySelector('#fixtures > ol'))
+        it('deve ser uma lista ordenada', () => {
+            expect(this.ol)
+            .withContext('Use a tag mais razoável para delimitar uma lista ordenada')
+            .toBeTruthy()
+        })
+        it('deve possuir 3 LIs filhos com textos corretos', () => {
+            let lis = this.ol.querySelectorAll(":scope > li")
+            expect(lis.length)
+            .withContext('Apenas tags <li> podem ser filhas de listas (ordenadas ou não)')
+            .toBe(3)
+            
+            expect(lis[0].childNodes[0].nodeValue.trim())
+            .withContext('Texto deve estar correto, sem o número na frente, respeitando maiúsculas e minúsculas')
+            .toBe("Fechar contrato")
+            expect(lis[1].childNodes[0].nodeValue.trim())
+            .withContext('Texto deve estar correto, sem o número na frente, respeitando maiúsculas e minúsculas')
+            .toBe("Análise de sistema")
+            expect(lis[2].childNodes[0].nodeValue.trim())
+            .withContext('Texto deve estar correto, sem o número na frente, respeitando maiúsculas e minúsculas')
+            .toBe("Treinamento dos usuários")
+        })
+    })
+    describe('Lista secundária', () => {
+        beforeEach(() => this.ol = document.querySelector('#fixtures > ol li:nth-child(2) > ol'))
+        it('deve ser uma lista ordenada e filha do segundo item da lista principal', () => {
+            expect(this.ol)
+            .withContext('Use a tag mais razoável para delimitar uma lista ordenada e certifique-se que essa lista é filha do segundo item da principal')
+            .toBeTruthy()
+        })
+        it('deve possuir 3 LIs filhos com textos corretos', () => {
+            let lis = this.ol.querySelectorAll(":scope > li")
+            expect(lis.length)
+            .withContext('Apenas tags <li> podem ser filhas de listas (ordenadas ou não)')
+            .toBe(3)
+            
+            expect(lis[0].childNodes[0].nodeValue.trim())
+            .withContext('Texto deve estar correto, sem o número na frente, respeitando maiúsculas e minúsculas')
+            .toBe("Avaliação da empresa")
+            expect(lis[1].childNodes[0].nodeValue.trim())
+            .withContext('Texto deve estar correto, sem o número na frente, respeitando maiúsculas e minúsculas')
+            .toBe("Programação")
+            expect(lis[2].childNodes[0].nodeValue.trim())
+            .withContext('Texto deve estar correto, sem o número na frente, respeitando maiúsculas e minúsculas')
+            .toBe("Aprovação do projeto")
+        })
+    })
+    describe('Lista terciária', () => {
+        beforeEach(() => this.ol = document.querySelector('#fixtures > ol li:nth-child(2) > ol li:nth-child(1) > ol'))
+        it('deve ser uma lista ordenada e filha do primeiro item da lista secundária', () => {
+            expect(this.ol)
+            .withContext('Use a tag mais razoável para delimitar uma lista ordenada e certifique-se que essa lista é filha do primeiro item da lista secundária')
+            .toBeTruthy()
+        })
+        it('deve possuir 2 LIs filhos com textos corretos', () => {
+            let lis = this.ol.querySelectorAll(":scope > li")
+            expect(lis.length)
+            .withContext('Apenas tags <li> podem ser filhas de listas (ordenadas ou não)')
+            .toBe(2)
+            
+            expect(lis[0].childNodes[0].nodeValue.trim())
+            .withContext('Texto deve estar correto, sem o número na frente, respeitando maiúsculas e minúsculas')
+            .toBe("Entrevista com funcionários")
+            expect(lis[1].childNodes[0].nodeValue.trim())
+            .withContext('Texto deve estar correto, sem o número na frente, respeitando maiúsculas e minúsculas')
+            .toBe("Pesquisa de documentação da empresa")
+        })
+    })
+})
