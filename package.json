@@ -2,20 +2,22 @@
   "name": "intro-html5",
   "version": "1.0.0",
   "description": "Exercício de Introdução ao HTML5",
-  "main": "gulpfile.js",
+  "main": "Gruntfile.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test"
   },
   "author": "Yuri Dirickson",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-jasmine-browser": "^4.1.0",
-    "jasmine-core": "^3.4.0",
-    "plugin-error": "^1.0.1",
-    "puppeteer": "^1.19.0"
+    "grunt": "^1.0.4",
+    "grunt-contrib-connect": "^2.0.0",
+    "grunt-contrib-jasmine": "^2.1.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "jasmine-core": "^3.4.0"
+  },
+  "dependencies": {
   }
 }
