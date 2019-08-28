@@ -70,6 +70,7 @@ module.exports = function(grunt) {
 			test: {
 				src: "src/js/**/*.js",
 				options: {
+                    display: 'short',
                     host: "http://localhost:9002/",
 					helpers: "helper/*.js",
                     specs: "spec/**/*.js"
