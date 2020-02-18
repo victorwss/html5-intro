@@ -4,23 +4,23 @@ Esse é um exercício de correção automática sobre o conteúdo da aula de Int
 
 ## Como fazer
 
-Você deve mexer apenas nos arquivos HTML na raiz, do Exercício1 até 4. Dentro de cada arquivo haverá uma Div com id _exercicio_ onde deve ser escrito o HTML. Vocês não devem mexer me mais nada do arquivo para não quebrar os testes.
+Você deve mexer apenas nos arquivos HTML na raiz, do Exercício1 até 4. Dentro de cada arquivo haverá uma Div com id _exercicio_ onde deve ser escrito o HTML. Vocês não devem mexer em mais nada do arquivo para não quebrar os testes.
 
 Edite o arquivo `membros.json` com as informações dos membros do grupo (até 3, no mínimo 1). Por exemplo, se forem dois membros:
 
 ```json
 [{
-    "nome": "Yuri Dirickson",
+    "nome": "João da Silva",
     "ra": 123456
 },{
-    "nome": "Dirickson Yuri",
+    "nome": "Maria da Silva",
     "ra": 654321
 }]
 ```
 
 ## Como Rodar
 
-O exerício funciona usando o framework de testes para JavaScirpt [Jasmine](https://jasmine.github.io). Para testar esse exercício, basta abrir o arquivo em um navegador moderno (Chrome ou Firefox) e ver os testes serem executados.
+O exerício funciona usando o framework de testes para JavaScirpt [Jasmine](https://jasmine.github.io). Para testar esse exercício, basta abrir qualquer arquivo HTML em um navegador moderno (Chrome ou Firefox) e ver os testes serem executados.
 
 ## Como fica a nota
 
