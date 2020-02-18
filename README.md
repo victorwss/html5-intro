@@ -20,7 +20,7 @@ Edite o arquivo `membros.json` com as informações dos membros do grupo (até 3
 
 ## Como Rodar
 
-O exerício funciona usando o framework de testes para JavaScirpt [Jasmine](https://jasmine.github.io). Para testar esse exercício, basta abrir qualquer arquivo HTML em um navegador moderno (Chrome ou Firefox) e ver os testes serem executados.
+O exercício funciona usando o framework de testes para JavaScirpt [Jasmine](https://jasmine.github.io). Para testar esse exercício, basta abrir qualquer arquivo HTML em um navegador moderno (Chrome ou Firefox) e ver os testes serem executados.
 
 ## Como fica a nota
 
