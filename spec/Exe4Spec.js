@@ -1,11 +1,9 @@
-describe('Exercício 4', () => {
+describe('Exercício 4 - Tabelas', () => {
 
-    beforeAll((done) => preparar(done))
-
-    beforeEach((done) => carregar('exe4.html', done))
+    beforeEach(() => this.$div = document.querySelector('#exercicio'))
 
     describe('Tabela', () => {
-        beforeEach(() => this.table = document.querySelector('#fixtures > table'))
+        beforeEach(() => this.table = this.$div.querySelector('table'))
         it('deve ser uma tabela', () => {
             expect(this.table)
             .withContext('Use a tag de tabelas corretamente')
@@ -19,7 +17,7 @@ describe('Exercício 4', () => {
         })
     })
     describe("Primeira Linha", () => {
-        beforeEach(() => this.tr = document.querySelector('#fixtures > table tr:nth-child(1)'))
+        beforeEach(() => this.tr = this.$div.querySelector('table tr:nth-child(1)'))
         it('deve conter 1 célula de cabeçalho, que expande em 5 colunas', () => {
             let th = this.tr.querySelectorAll(":scope > *")
             expect(th.length)
@@ -37,7 +35,7 @@ describe('Exercício 4', () => {
         })
     })
     describe("Segunda Linha", () => {
-        beforeEach(() => this.tr = document.querySelector('#fixtures > table tr:nth-child(2)'))
+        beforeEach(() => this.tr = this.$div.querySelector('table tr:nth-child(2)'))
         it('deve conter 5 célula de cabeçalho', () => {
             this.ths = this.tr.querySelectorAll(":scope > th")
             expect(ths.length)
@@ -70,7 +68,7 @@ describe('Exercício 4', () => {
         })
     })
     describe("Terceira Linha", () => {
-        beforeEach(() => this.tr = document.querySelector('#fixtures > table tr:nth-child(3)'))
+        beforeEach(() => this.tr = this.$div.querySelector('table tr:nth-child(3)'))
         it('deve conter 4 células normais', () => {
             this.tds = this.tr.querySelectorAll(":scope > td")
             expect(tds.length)
@@ -94,7 +92,7 @@ describe('Exercício 4', () => {
         })
     })
     describe("Quarta Linha", () => {
-        beforeEach(() => this.tr = document.querySelector('#fixtures > table tr:nth-child(4)'))
+        beforeEach(() => this.tr = this.$div.querySelector('table tr:nth-child(4)'))
         it('deve conter 4 células normais', () => {
             this.tds = this.tr.querySelectorAll(":scope > td")
             expect(tds.length)
@@ -118,7 +116,7 @@ describe('Exercício 4', () => {
         })
     })
     describe("Quinta Linha", () => {
-        beforeEach(() => this.tr = document.querySelector('#fixtures > table tr:nth-child(5)'))
+        beforeEach(() => this.tr = this.$div.querySelector(' > table tr:nth-child(5)'))
         it('deve conter 4 células normais', () => {
             this.tds = this.tr.querySelectorAll(":scope > td")
             expect(tds.length)
@@ -142,7 +140,7 @@ describe('Exercício 4', () => {
         })
     })
     describe("Sexta Linha", () => {
-        beforeEach(() => this.tr = document.querySelector('#fixtures > table tr:nth-child(6)'))
+        beforeEach(() => this.tr = this.$div.querySelector('table tr:nth-child(6)'))
         it('deve conter 4 células normais', () => {
             this.tds = this.tr.querySelectorAll(":scope > td")
             expect(tds.length)

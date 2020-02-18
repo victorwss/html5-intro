@@ -4,31 +4,29 @@ Esse é um exercício de correção automática sobre o conteúdo da aula de Int
 
 ## Como fazer
 
-Você deve mexer apenas nos arquivos HTML dentro da pasta **src**. Nâo mexa nos outros arquivos, pois isso pode comprometer os testes. 
+Você deve mexer apenas nos arquivos HTML na raiz, do Exercício1 até 4. Dentro de cada arquivo haverá uma Div com id _exercicio_ onde deve ser escrito o HTML. Vocês não devem mexer me mais nada do arquivo para não quebrar os testes.
 
-Cada arquivo HTML dentro da pasta **src** possui um enunciado do que é esperado dentro dele. Escreva o código HTML e rode os testes para ver se acertou.
+Edite o arquivo `membros.json` com as informações dos membros do grupo (até 3, no mínimo 1). Por exemplo, se forem dois membros:
 
-Não há necessidade de escrever a estrutura inteira de um documento HTML (`<html>, <head>, <body>`, etc.). Escreva apenas as tag's necessárias para a resolução do exercício.
-
-Edite o arquivo `membros.json` com as informações dos membros do grupo (até 3, no mínimo 1).
+```json
+[{
+    "nome": "Yuri Dirickson",
+    "ra": 123456
+},{
+    "nome": "Dirickson Yuri",
+    "ra": 654321
+}]
+```
 
 ## Como Rodar
 
-O exerício funciona usando o framework de testes para JavaScirpt [Jasmine](https://jasmine.github.io). Para testar esse exercício sem limitação de navegador, recomenda-se usar o HTTPServer do Python (ou qualquer outro servidor HTTP de sua preferência).
-
-Para usar o HTTP Server do Python (v3+), na pasta deste exercício execute o comando:
-
-```shell
-python -m http.server
-```
-
-Depois basta entrar em algum navegador na url http://localhost:8000/SpecRunner.html e ver os testes sendo executados.
+O exerício funciona usando o framework de testes para JavaScirpt [Jasmine](https://jasmine.github.io). Para testar esse exercício, basta abrir o arquivo em um navegador moderno (Chrome ou Firefox) e ver os testes serem executados.
 
 ## Como fica a nota
 
-A nota desse exercício será uma proporção entre os testes passados e não passados. São ao todo 48 testes.
+A nota desse exercício será uma proporção entre os testes passados e não passados.
 
-Exemplos:
+Por exemplo, caso sejam 48 testes a nota fica em cada caso:
 
 - Dos 48, 42 passaram: `(42 / 48) * 10 = 8,75`
 - Dos 48, 16 passaram: `(16 / 48) * 10 = 3,34`

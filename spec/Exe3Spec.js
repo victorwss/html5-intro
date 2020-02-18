@@ -1,11 +1,9 @@
-describe('Exercício 3', () => {
+describe('Exercício 3 - Listas', () => {
 
-    beforeAll((done) => preparar(done))
-
-    beforeEach((done) => carregar('exe3.html', done))
+    beforeEach(() => this.$div = document.querySelector('#exercicio'))
 
     describe('Lista principal', () => {
-        beforeEach(() => this.ol = document.querySelector('#fixtures > ol'))
+        beforeEach(() => this.ol = this.$div.querySelector('ol'))
         it('deve ser uma lista ordenada', () => {
             expect(this.ol)
             .withContext('Use a tag mais razoável para delimitar uma lista ordenada')
@@ -29,7 +27,7 @@ describe('Exercício 3', () => {
         })
     })
     describe('Lista secundária', () => {
-        beforeEach(() => this.ol = document.querySelector('#fixtures > ol li:nth-child(2) > ol'))
+        beforeEach(() => this.ol = this.$div.querySelector('ol li:nth-child(2) > ol'))
         it('deve ser uma lista ordenada e filha do segundo item da lista principal', () => {
             expect(this.ol)
             .withContext('Use a tag mais razoável para delimitar uma lista ordenada e certifique-se que essa lista é filha do segundo item da principal')
@@ -53,7 +51,7 @@ describe('Exercício 3', () => {
         })
     })
     describe('Lista terciária', () => {
-        beforeEach(() => this.ol = document.querySelector('#fixtures > ol li:nth-child(2) > ol li:nth-child(1) > ol'))
+        beforeEach(() => this.ol = this.$div.querySelector('ol li:nth-child(2) > ol li:nth-child(1) > ol'))
         it('deve ser uma lista ordenada e filha do primeiro item da lista secundária', () => {
             expect(this.ol)
             .withContext('Use a tag mais razoável para delimitar uma lista ordenada e certifique-se que essa lista é filha do primeiro item da lista secundária')
