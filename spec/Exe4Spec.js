@@ -116,7 +116,7 @@ describe('Exercício 4 - Tabelas', () => {
         })
     })
     describe("Quinta Linha", () => {
-        beforeEach(() => this.tr = this.$div.querySelector(' > table tr:nth-child(5)'))
+        beforeEach(() => this.tr = this.$div.querySelector('table tr:nth-child(5)'))
         it('deve conter 4 células normais', () => {
             this.tds = this.tr.querySelectorAll(":scope > td")
             expect(tds.length)
