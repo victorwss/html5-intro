@@ -41,4 +41,12 @@ Os outros 0,4 pontos (podendo então totalizar 10) serão dados para quem preenc
 
 Arquivos HTML que contiverem algum mecanismo para tentar burlar os testes terão sua nota correspondente zerada.
 
+## Como fazer a entrega.
+
 A entrega deve ser feita pelo formulário na AC 1 do classroom.
+
+Coloque nele um arquivo ZIP contendo os 4 HTMLs editados. Os demais arquivos não são necessários, pois usarei sempre os originais.
+
+Em caso de múltiplas entregas de um mesmo grupo de alunos, ainda que por pessoas diferentes do mesmo grupo, irei considerar apenas a última.
+
+E lembre-se que entregar corretamente o ZIP também é parte da nota.
