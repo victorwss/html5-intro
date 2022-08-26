@@ -32,5 +32,6 @@ Há 4 HTMLs aqui. Edite cada um deles até que todos estejam corretos.
 ## Como fica a nota
 
 Há 48 testes no total, e cada um deles vale 0,2 pontos na nota, perfazendo uma nota máxima de 9,6.
-Os outros 0,4 pontos serão dados para quem preencher o JSON corretamente *E* ter todas as HTMLs bem formadas *E* não colocar nada a mais do que o que foi solicitado nos HTMLs *E* fizer a entrega corretamente.
+Os outros 0,4 pontos (podendo então totalizar 10) serão dados para quem preencher o JSON corretamente **E** ter todas as HTMLs bem formadas **E** não colocar nada a mais do que o que foi solicitado nos HTMLs **E** fizer a entrega corretamente.
 Arquivos HTML que contiverem algum mecanismo para tentar burlar os testes terão sua nota correspondente zerada.
+A entrega deve ser feita pelo formulário na AC 1 do classroom.
