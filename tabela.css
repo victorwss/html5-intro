@@ -1,0 +1,42 @@
+table {
+    font: "Times New Roman", "Serif";
+    font-size: 16px;
+}
+
+th[text="Nacionais"] {
+    background: rgb(0, 192, 192);
+    font-weight: bold;
+    width: 100px;
+}
+
+th[text="Tabela de Serviços Mecânicos"] {
+    background: rgb(0, 255, 128);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+th:not([text="Tabela de Serviços Mecânicos"]):not([text="Nacionais"]) {
+    background: rgb(192, 192, 192);
+    font-weight: normal;
+}
+
+table, td, th {
+    border-style: inset;
+    border-width: 1px;
+}
+
+td, th {
+    width: 150px;
+}
+
+tr > td:nth-child(3) {
+    text-align: center;
+}
+
+tr > td:nth-child(4) {
+    text-align: right;
+}
+
+tr > td:nth-child(4), tr > th:nth-child(5) {
+    width: 60px;
+}
