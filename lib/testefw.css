@@ -24,8 +24,12 @@
     font-size: 1.6em;
 }
 
-#testefw-run h3 {
+#testefw-run h3, #testefw-nota label {
     font-size: 1.2em;
+}
+
+#testefw-run h1, #testefw-run h2, #testefw-run h3, #testefw-nota label {
+    font-weight: bold;
 }
 
 #testefw-run button {
@@ -46,8 +50,7 @@
 }
 
 .testefw-exercicio,
-.testefw-grupo,
-#testefw-nota {
+.testefw-grupo {
     border: 1px black solid;
     border-radius: 5px;
     padding: 5px;
@@ -55,8 +58,13 @@
     margin-bottom: 5px;
 }
 
-.testefw-grupo.testefw-ok {
-    background: #C0FFC0;
+.testefw-exercicio:last-child {
+    margin-bottom: 0px;
+}
+
+.testefw-grupo.testefw-ok,
+.testefw-exercicio.testefw-ok {
+    background: #D0FFD0;
 }
 
 .testefw-grupo.testefw-niy,
@@ -94,7 +102,7 @@
 }
 
 .testefw-exercicio.testefw-ok {
-    background: #80FF80;
+    background: #90FF90;
 }
 
 .testefw-exercicio.testefw-niy {
@@ -129,6 +137,25 @@
 .testefw-exercicio .testefw-inesperado {
     font-weight: bold;
     background: yellow;
+    white-space: pre;
+}
+
+.testefw-bloco {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Cabeçalho do resultado dos testes. */
+
+#testefw-nota {
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: white;
+    position: sticky;
+    top: 0;
 }
 
 #testefw-contasucessos {
@@ -147,18 +174,32 @@
     color: #C0C0C0;
 }
 
+#testefw-contaespera {
+    color: #00C0C0;
+}
+
+#testefw-nota > div {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#testefw-nota h1, #testefw-nota h2, #testefw-div-seguir {
+    display: inline-block;
+}
+
+#testefw-seguir, #testefw-nota label {
+    margin: 0;
+    height: 25px;
+    vertical-align: middle;
+}
+
 .testefw-oculto {
     display: none;
 }
 
 .testefw-perigo {
     color: red;
-}
-
-#testefw-nota {
-    background: white;
-    position: sticky;
-    top: 0;
 }
 
 .testefw-botao {
@@ -172,16 +213,6 @@
     padding: 10px;
     border-radius: 1em;
     font-family: sans-serif;
-}
-
-#testefw-nota > div {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-#testefw-nota h2 {
-    display: inline-block;
 }
 
 /* Erros gravíssimos. */
@@ -248,4 +279,64 @@
 
 #testefw-alunos li:last-child {
     margin-right: 0;
+}
+
+/* Formulário de execução. */
+
+#testefw-form-executar * {
+    box-sizing: border-box;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+#testefw-form-executar {
+    border: 1px black solid;
+    background: #DFF;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#testefw-form-executar p {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    vertical-align: text-top;
+}
+
+#testefw-form-executar label {
+    display: block;
+    font-size: 1.2em;
+}
+
+#testefw-form-executar input {
+    width: 75px;
+}
+
+#testefw-form-executar label, #testefw-form-executar input[type="text"], #testefw-form-executar button {
+    height: 25px;
+}
+
+#testefw-form-executar button {
+    border: 1px black solid;
+    background: blue;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    height: 25px;
+    font-size: 1em;
+    border-radius: 10px;
+}
+
+#testefw-form-executar :disabled {
+    background: silver;
+}
+
+#testefw-form-executar input {
+    border: 1px black solid;
+    background: #0FF;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 1.25em;
 }

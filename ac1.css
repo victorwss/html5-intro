@@ -1,3 +1,5 @@
+/* Tabelas. */
+
 table {
     font: "Times New Roman", "Serif";
     font-size: 16px;
@@ -39,4 +41,32 @@ tr > td:nth-child(4) {
 
 tr > td:nth-child(4), tr > th:nth-child(5) {
     width: 60px;
+}
+
+/* Exercícios. */
+
+#exercicio1, #exercicio2, #exercicio3, #exercicio4 {
+    border: 2px black solid;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+#exercicio2 h2 {
+    padding-left: 20px;
+}
+
+#exercicio2 h3 {
+    padding-left: 40px;
+}
+
+#exercicio2 h4 {
+    padding-left: 60px;
+}
+
+#exercicio2 h5 {
+    padding-left: 80px;
+}
+
+#exercicio2 h6 {
+    padding-left: 100px;
 }

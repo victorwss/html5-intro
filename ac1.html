@@ -4,47 +4,50 @@
         <meta charset="utf-8">
         <title>Exercícios HTML5</title>
         <link rel="stylesheet" href="lib/testefw.css">
-        <link rel="stylesheet" href="tabela.css">
+        <link rel="stylesheet" href="ac1.css">
         <script src="lib/testefw.js" defer></script>
+        <script src="ac1-teste.js" defer></script>
         <script>
-        function dadosDosAlunos() {
-            return [
-                {
-                    "nome": "João da Silva",
-                    "ra": 6123456
-                },
-                {
-                    "nome": "Maria da Silva",
-                     "ra": 6654321
-                }
-            ];
-        }
+            function dadosDosAlunos() {
+                return [
+                    {
+                        "nome": "João da Silva",
+                        "ra": 6123456
+                    },
+                    {
+                        "nome": "Maria da Silva",
+                         "ra": 6654321
+                    }
+                ];
+            }
         </script>
-        <script src="ac1.js" defer></script>
     </head>
 
     <body>
         <div id="exercicio1">
             <!--
-              Exercício 1 - Tags HTML
+                Exercício 1 - Tags HTML
 
-              Escreva em HTML um texto com a seguinte configuração (na ordem em que se apresenta).
-              As partes antes dos dois pontos (:) em maiúsculo são indicações da tag a ser usadas,
-              usem sempre as tags mais indicadas para cada trabalho.
-              IMPORTANTE: Deixe tudo dentro deste <div>.
+                Escreva em HTML um texto com a configuração descrita abaixo e na ordem em que se apresenta.
+                As partes antes dos dois pontos (:) em maiúsculo são indicações da tag a ser usadas,
+                usem sempre as tags mais indicadas para cada trabalho.
 
-              TÍTULO: Meu Primeiro HTML
+                IMPORTANTE: Deixe tudo dentro deste <div>.
 
-              TEXTO: Desde 1999, o desenvolvimento da linguagem HTML (ITÁLICO:[HyperText Markup Language])
-              ficou estacionado na versão 4. De lá pra cá, a W3C esteve focada em linguagens como
-              XML (NEGRITO:[Extensible Markup Language]) e SVG (SUBLINHADO:[Scalable Vector Graphics]).
-              Mas finalmente, a partir de 2008, a HTML5 começou a ser desenvolvida e hoje é a versão dominante.
+                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-              IMAGEM: https://www.w3.org/html/logo/img/html5-topper.png Texto Alternativo: HTML5 Logo
+                TÍTULO: Meu Primeiro HTML
 
-              LINK: https://www.w3.org/html/ Saiba mais sobre o HTML5
+                TEXTO: Desde 1999, o desenvolvimento da linguagem HTML (ITÁLICO:[HyperText Markup Language]) ficou
+                estacionado na versão 4. De lá pra cá, a W3C esteve focada em linguagens como
+                XML (NEGRITO:[Extensible Markup Language]) e SVG (SUBLINHADO:[Scalable Vector Graphics]).
+                Mas finalmente, a partir de 2008, a HTML5 começou a ser desenvolvida e hoje é a versão dominante.
 
-              CITAÇÃO: Aprender HTML5 é o início da sua jornada na web AUTOR: Professor de TecWeb
+                IMAGEM: https://www.w3.org/html/logo/img/html5-topper.png Texto Alternativo: HTML5 Logo
+
+                LINK: https://www.w3.org/html/ Saiba mais sobre o HTML5
+
+                CITAÇÃO: Aprender HTML5 é o início da sua jornada na web AUTOR: Professor de TecWeb
             -->
         </div>
 
@@ -52,12 +55,14 @@
             <!--
                 Exercício 2 - Headings (cabeçalhos)
 
-                Use os Headings do HTML para criar a seguinte estrutura de documento:
-                Não se preocupe com o espaçamento, ele é mais para dar uma ideia de hierarquias
-                entre os headings.
-                IMPORTANTE: Deixe tudo dentro deste <div>.
+                Use os Headings do HTML para criar a estrutura de documento descrita abaixo.
 
-                A numeração também NÃO deve ser escrita.
+                IMPORTANTE 1: Deixe tudo dentro deste <div>.
+                IMPORTANTE 2: A numeração dos itens NÃO deve ser escrita.
+                OBSERVAÇÃO: Não se preocupe com o espaçamento, ele é mais para dar uma ideia de hierarquias entre os
+                headings. E o CSS que já vem pronto vai te dar uma ajudinha aqui.
+
+                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
                 1. Introdução
                 2. Objetivos
@@ -87,7 +92,10 @@
 
                 Listas: reproduza no HTML uma estrutra de lista ordenadas conforme abaixo.
                 Lembre-se que você pode ter listas dentro de listas!
+
                 IMPORTANTE: Deixe tudo dentro deste <div>.
+
+                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
                 1. Fechar contrato
                 2. Análise de sistema
@@ -102,9 +110,19 @@
 
         <div id="exercicio4">
             <!--
-                Escreva uma tabela em HTML que represente a que está no arquivo tabela.png existente na mesma pasta deste arquivo.
-                IMPORTANTE: Deixe tudo dentro deste <div>.
-                Observação: Não se preocupe com a largura, bordas e cores, o CSS deve fazer esse trabalho sozinho.
+                Exercício 4 - Tabela
+
+                Escreva uma tabela em HTML que represente a que está no arquivo tabela.png existente na mesma pasta
+                deste arquivo. É a figura que foi colocada abaixo.
+
+                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+                IMPORTANTE 1: Deixe tudo dentro deste <div>.
+                IMPORTANTE 2: A tabela tem que ter o <thead> e o <tbody>.
+                IMPORTANTE 3: Não confunda <th> com <td>.
+                IMPORTANTE 4: E não se esqueça dos atributos colspan, rowspan e scope.
+                IMPORTANTE 5: Depois de ter feito a tabela, delete a tag <img> abaixo ou coloque-a em um comentário.
+                OBSERVAÇÃO: Não se preocupe com a largura, bordas e cores, o CSS deve fazer esse trabalho sozinho.
             -->
             <img src="tabela.png" alt="Faça o equivalente desta tabela! E delete esta imagem." />
         </div>

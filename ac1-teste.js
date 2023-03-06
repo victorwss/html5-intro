@@ -1,6 +1,68 @@
 "use strict";
 
+function lerNumero(texto, cfgs) {
+    if (!cfgs) cfgs = {};
+    const erro = cfgs.erro || "";
+    const erroFormato = cfgs.erroFormato || cfgs.erro;
+    const erroMin = cfgs.erroMin || cfgs.erro;
+    const erroMax = cfgs.erroMax || cfgs.erro;
+    const erroCasas = cfgs.erroCasas || cfgs.erro;
+    if (texto === "" || typeof texto !== "string") throw new Error(erroFormato);
+    const negativo = texto.charAt(0) === "-";
+    if (negativo) texto = texto.substring(1);
+    for (let i = 0; i < texto.length; i++) {
+        if (!"0123456789.".includes(texto.charAt(i))) throw new Error(erroFormato);
+    }
+    const dot = texto.indexOf(".");
+    if (dot !== texto.lastIndexOf(".")) throw new Error(erroFormato);
+    if (dot === 0 || dot === texto.length - 1) throw new Error(erroFormato);
+    if (cfgs.casas !== undefined && dot !== -1 && dot + cfgs.casas + 1 < texto.length) throw new Error(erroCasas);
+    const n = negativo ? -texto : +texto;
+    if (cfgs.min !== undefined && n < cfgs.min) throw new Error(erroMin);
+    if (cfgs.max !== undefined && n > cfgs.max) throw new Error(erroMax);
+    return n;
+}
+
+function determinarTipo(elemento) {
+    if (elemento === null) return "null";
+    if (typeof elemento !== "object") return typeof elemento;
+    return elemento.constructor.name;
+}
+
+// PARA FACILITAR A PROCURA DOS NÓS CORRETOS NO DOM.
+
+Object.defineProperty(Node.prototype, "nonBlankChildNodes", {
+    get() {
+        const resposta = [];
+        const elems = this.childNodes;
+        for (let e = 0; e < elems.length; e++) {
+            const elem = elems[e];
+            if (elem.constructor.name !== "Comment" && (elem.constructor.name !== "Text" || elem.textContent.trim() !== "")) resposta.push(elem);
+        }
+        return resposta;
+    },
+    enumerable: true,
+    configurable: false
+});
+
 prepararTestes(funcs => {
+    window.onerror = (ev, arquivo, linha, coluna, erro) => {
+        funcs.erroGravissimo(""
+                + "<h1>SE VOCÊ ESTÁ VENDO ISSO, É PORQUE HÁ ERROS ESTRUTURAIS GRAVES NO QUE VOCÊS DESENVOLVERAM.</h1>"
+                + "<p>Este é um erro gravíssimo. Veja mais detalhes no console do navegador para tentar entender onde ocorreu o erro.</p>"
+                + "<p>Quem entregar para o professor algo que faça esta mensagem aparecer, vai ficar com nota zero!</p>"
+        );
+        document.querySelector("#testefw-botao-executar").disabled = true;
+    };
+    const divNota = document.querySelector("#testefw-nota");
+    if (divNota) divNota.style.display = "none";
+
+    // Truque para o CSS funcionar.
+    for (const e of document.querySelectorAll("td, th")) {
+        e.setAttribute("text", e.innerText);
+    }
+},
+funcs => {
     const erroGravissimo = funcs.erroGravissimo;
     const grupo = funcs.grupo;
     const teste = funcs.teste;
@@ -9,16 +71,6 @@ prepararTestes(funcs => {
     const Utilitarios = funcs.Utilitarios;
     const ErroFormatado = funcs.ErroFormatado;
     const numeroMaximoDeAlunos = 5;
-
-    window.onerror = (ev, arquivo, linha, coluna, erro) => {
-        erroGravissimo(""
-                + "<h1>SE VOCÊ ESTÁ VENDO ISSO, É PORQUE HÁ ERROS ESTRUTURAIS GRAVES NO QUE VOCÊS DESENVOLVERAM.</h1>"
-                + "<p>Este é um erro gravíssimo. Veja mais detalhes no console do navegador para tentar entender onde ocorreu o erro.</p>"
-                + "<p>Quem entregar para o professor algo que faça esta mensagem aparecer, vai ficar com nota zero!</p>"
-        );
-    };
-    const divNota = document.querySelector("#testefw-nota");
-    if (divNota) divNota.style.display = "none";
 
     // JSON DOS ALUNOS.
     let jsonOk = false;
@@ -82,106 +134,49 @@ prepararTestes(funcs => {
         }
     }
 
-    grupo("JSON com nomes dos alunos", "Verifica o JSON com a identificação do(a)(s) aluno(a)(s) está ok").naoFracionado.minimo(-10).testes([
+    grupo("Exercício 0", "Verifica o JSON com a identificação do(a)(s) aluno(a)(s) está ok").naoFracionado.minimo(-10).testes([
         teste("Listagem de alunos ok.", () => mostrarValidacaoJsonAlunos(), naoDeuErro(), undefined, setTestOk)
     ]);
 
-    // VALIDAÇÃO DE HTML.
+    // ESTRUTURA DAS PÁGINAS.
 
-    function validateHTML(htmlString) {
-        return new Promise(resolve  => {
-            "https://validator.w3.org/nu/"
-            function veio() {
-                console.log(this.responseText);
-                resolve(this.responseText);
-            }
-            function abortado() {
-                resolve("Cancelado");
-            }
-            function deuPau() {
-                resolve(this.responseText);
-            }
+    // Flags que controlam as dependências entre testes. e = estrutura, ex = exercício, h = headings, p = parágrafo
+    let eOkA = false, eOkB = false, eOkC = false, eOkD = false, eOkE = false, eOkF = false, eOkG = false, // Estrutura
+            ex1Ok = false, ex2Ok = false, ex3Ok = false, ex4Ok = false,                                   // Exercícios
+            h1OkA = false, h1OkB = false, h1OkC = false,                                                  // Ex 1 - Título
+            pOkA = false, pOkB = false, pOkC = false, pOkD = false,                                       // Ex 1 - Parágrafo
+            bOkA = false, bOkB = false,                                                                   // Ex 1 - Negrito
+            iOkA = false, iOkB = false,                                                                   // Ex 1 - Itálico
+            uOkA = false, uOkB = false,                                                                   // Ex 1 - Sublinhado
+            imgOkA = false, imgOkB = false,                                                               // Ex 1 - Imagem
+            aOkA = false, aOkB = false,                                                                   // Ex 1 - Link
+            qOkA = false, qOkB = false, qOkC = false,                                                     // Ex 1 - Citação
+            cOkA = false, cOkB = false;                                                                   // Ex 1 - Autor da citação
 
-            const req = new XMLHttpRequest();
-            req.addEventListener("load", veio);
-            req.addEventListener("error", deuPau);
-            req.addEventListener("abort", abortado);
-            req.open("POST", "https://validator.w3.org/nu/");
-            req.setRequestHeader("Content-Type", "text/html");
-            req.send(htmlString);
-        });
-    }
+    grupo("Estrutura da página", "Verifica se a estrutura da página foi mantida").minimo(-2).testes([
+        teste("O documento só tem os dois filhos."         , () => document.nonBlankChildNodes.length                                           , igual(2             ), undefined, ok => eOkA  = ok),
+        teste("O documento tem um <!DOCTYPE>."             , () => document.nonBlankChildNodes[0].constructor.name                              , igual("DocumentType"), eOkA     , ok => eOkB  = ok),
+        teste("O <!DOCTYPE html> está lá."                 , () => document.nonBlankChildNodes[0].name                                          , igual("html"        ), eOkB     , ok => eOkC  = ok),
+        teste("O elemento-filho do documento é o <html>."  , () => document.nonBlankChildNodes[1].tagName                                       , igual("HTML"        ), eOkC     , ok => eOkD  = ok),
+        teste("O <html> têm dois filhos."                  , () => document.querySelector("html").nonBlankChildNodes.length                     , igual(2             ), eOkD     , ok => eOkE  = ok),
+        teste("O <html> contém o <head>."                  , () => document.querySelector("html").nonBlankChildNodes[0] === document.head       , igual(true          ), eOkE     , ok => eOkF  = ok),
+        teste("O <html> contém o <body>."                  , () => document.querySelector("html").nonBlankChildNodes[1] === document.body       , igual(true          ), eOkF     , ok => eOkG  = ok),
+        teste("O <body> contém o número certo de filhos."  , () => document.body.nonBlankChildNodes.length                                      , igual(6             ), eOkG                       ),
+        teste("O elemento #exercicio1 é uma <div>."        , () => document.querySelector("#exercicio1").tagName                                , igual("DIV"         ), eOkG     , ok => ex1Ok = ok),
+        teste("O <body> contém #exercicio1 no local certo.", () => document.body.nonBlankChildNodes[1] === document.querySelector("#exercicio1"), igual(true          ), eOkG                       ),
+        teste("O elemento #exercicio2 é uma <div>."        , () => document.querySelector("#exercicio2").tagName                                , igual("DIV"         ), eOkG     , ok => ex2Ok = ok),
+        teste("O <body> contém #exercicio2 no local certo.", () => document.body.nonBlankChildNodes[2] === document.querySelector("#exercicio2"), igual(true          ), eOkG                       ),
+        teste("O elemento #exercicio3 é uma <div>."        , () => document.querySelector("#exercicio3").tagName                                , igual("DIV"         ), eOkG     , ok => ex3Ok = ok),
+        teste("O <body> contém #exercicio3 no local certo.", () => document.body.nonBlankChildNodes[3] === document.querySelector("#exercicio3"), igual(true          ), eOkG                       ),
+        teste("O elemento #exercicio4 é uma <div>."        , () => document.querySelector("#exercicio4").tagName                                , igual("DIV"         ), eOkG     , ok => ex4Ok = ok),
+        teste("O <body> contém #exercicio4 no local certo.", () => document.body.nonBlankChildNodes[4] === document.querySelector("#exercicio4"), igual(true          ), eOkG                       ),
+    ]);
 
-    async function validateMe() {
-        const source = await fetch(document.location.href).then(response => response.text());
-        return await validateHTML(source);
-    }
-
-    function validou() {
-        return {
-            testar: valorObtido => {
-                if (!valorObtido.includes('<p class="success">The document validates according to the specified schema(s).</p>')) {
-                    throw new ErroFormatado(Utilitarios.escapeHtml('<p class="success">The document validates according to the specified schema(s).</p>'), valorObtido, ["", ""]);
-                }
-            },
-            esperado: `Resultado esperado: ${Utilitarios.escapeHtml('<p class="success">The document validates according to the specified schema(s).</p>')}.`
-        };
-    }
-
-    // UM MONTE DE COISAS INTERNAS.
-
-    Object.defineProperty(Node.prototype, "nonBlankChildNodes", {
-        get() {
-            const resposta = [];
-            const elems = this.childNodes;
-            for (let e = 0; e < elems.length; e++) {
-                const elem = elems[e];
-                if (elem.constructor.name !== "Comment" && (elem.constructor.name !== "Text" || elem.textContent.trim() !== "")) resposta.push(elem);
-            }
-            return resposta;
-        },
-        enumerable: true,
-        configurable: false,
-    });
-
-    let ex1Ok = false, ex2Ok = false, ex3Ok = false, ex4Ok = false,
-            h1OkA = false, h1OkB = false, h1OkC = false,
-            pOkA = false, pOkB = false, pOkC = false, pOkD = false,
-            bOkA = false, bOkB = false,
-            iOkA = false, iOkB = false,
-            uOkA = false, uOkB = false,
-            imgOkA = false, imgOkB = false,
-            aOkA = false, aOkB = false,
-            qOkA = false, qOkB = false, qOkC = false,
-            cOkA = false, cOkB = false;
+    // EXERCÍCIOS.
     const textao = "Desde 1999, o desenvolvimento da linguagem HTML (HyperText Markup Language) ficou estacionado na versão 4. De lá pra cá, a W3C esteve focada em linguagens como XML (Extensible Markup Language) e SVG (Scalable Vector Graphics). Mas finalmente, a partir de 2008, a HTML5 começou a ser desenvolvida e hoje é a versão dominante.";
     const url = "https://www.w3.org/html/logo/img/html5-topper.png";
     const link = "https://www.w3.org/html/";
     const citacao = "Aprender HTML5 é o início da sua jornada na web Professor de TecWeb";
-
-    // ESTRUTURA DAS PÁGINAS.
-
-    grupo("Estrutura da página", "Verifica se a estrutura da página foi mantida").minimo(-2).pararNoPrimeiroErro.testes([
-        teste("O documento só tem os dois filhos."         , () => document.nonBlankChildNodes.length                                           , igual(2             )),
-        teste("O documento tem um <!DOCTYPE>."             , () => document.nonBlankChildNodes[0].constructor.name                              , igual("DocumentType")),
-        teste("O <!DOCTYPE html> está lá."                 , () => document.nonBlankChildNodes[0].name                                          , igual("html"        )),
-        teste("O elemento-filho do documento é o <html>."  , () => document.nonBlankChildNodes[1].tagName                                       , igual("HTML"        )),
-        teste("O <html> têm dois filhos."                  , () => document.querySelector("html").nonBlankChildNodes.length                     , igual(2             )),
-        teste("O <html> contém o <head>."                  , () => document.querySelector("html").nonBlankChildNodes[0] === document.head       , igual(true          )),
-        teste("O <html> contém o <body>."                  , () => document.querySelector("html").nonBlankChildNodes[1] === document.body       , igual(true          )),
-        teste("O <body> contém o número certo de filhos."  , () => document.body.nonBlankChildNodes.length                                      , igual(5             )),
-        teste("O elemento #exercicio1 é uma <div>."        , () => document.querySelector("#exercicio1").tagName                                , igual("DIV"), undefined, ok => ex1Ok = ok),
-        teste("O <body> contém #exercicio2 no local certo.", () => document.body.nonBlankChildNodes[1] === document.querySelector("#exercicio2"), igual(true)                              ),
-        teste("O elemento #exercicio2 é uma <div>."        , () => document.querySelector("#exercicio2").tagName                                , igual("DIV"), undefined, ok => ex2Ok = ok),
-        teste("O <body> contém #exercicio3 no local certo.", () => document.body.nonBlankChildNodes[2] === document.querySelector("#exercicio3"), igual(true)                              ),
-        teste("O elemento #exercicio3 é uma <div>."        , () => document.querySelector("#exercicio3").tagName                                , igual("DIV"), undefined, ok => ex3Ok = ok),
-        teste("O <body> contém #exercicio4 no local certo.", () => document.body.nonBlankChildNodes[3] === document.querySelector("#exercicio4"), igual(true)                              ),
-        teste("O elemento #exercicio4 é uma <div>."        , () => document.querySelector("#exercicio4").tagName                                , igual("DIV"), undefined, ok => ex4Ok = ok),
-        teste("O <body> contém #exercicio1 no local certo.", () => document.body.nonBlankChildNodes[0] === document.querySelector("#exercicio1"), igual(true)          ),
-        teste("Não há erros na estrutura do HTML."         , async () => await validateMe()                                                     , validou()            )
-    ]);
-
-    // EXERCÍCIOS.
 
     const testesEx1 = [
         teste("A tag do título deve estar presente. Utilize a tag correta para título de texto principais.", () => document.querySelector("#exercicio1 > h1") !== null                                                  , igual(true)                        , () => ex1Ok , ok => h1OkA  = ok),
@@ -245,7 +240,7 @@ prepararTestes(funcs => {
         ["H1", "Conclusão"]
     ];
     const testesEx2 = [
-        teste("Existem 19 elementos no exercício.", () => document.querySelector("#exercicio2").nonBlankChildNodes.length, igual(19), ex2Ok)
+        teste("Existem 19 elementos no exercício.", () => document.querySelector("#exercicio2").nonBlankChildNodes.length, igual(19), () => ex2Ok)
     ];
     for (const i in casosEx2) {
         testesEx2.push(teste(`Verifica se o tipo do elemento ${i} está ok.`    , eval(`() => document.querySelector("#exercicio2").nonBlankChildNodes[${i}].tagName`                  ), igual(casosEx2[i][0]), () => ex2Ok));
@@ -341,14 +336,121 @@ prepararTestes(funcs => {
         }
     }
 
-    grupo("Exercício 1", "HTML"    ).maximo(2.5).testes(testesEx1);
-    grupo("Exercício 2", "Headings").maximo(2.5).testes(testesEx2);
-    grupo("Exercício 3", "Listas"  ).maximo(2.5).testes(testesEx3);
-    grupo("Exercício 4", "Tabela"  ).maximo(2.5).testes(testesEx4);
+    grupo("Exercício 1", "Tags HTML").maximo(2.4).testes(testesEx1);
+    grupo("Exercício 2", "Headings" ).maximo(2.4).testes(testesEx2);
+    grupo("Exercício 3", "Listas"   ).maximo(2.4).testes(testesEx3);
+    grupo("Exercício 4", "Tabela"   ).maximo(2.4).testes(testesEx4);
 
-    // TRUQUE PARA O CSS FUNCIONAR.
+    // VALIDAÇÃO DE HTML.
 
-    for (const e of document.querySelectorAll("td, th")) {
-        e.setAttribute("text", e.innerText);
+    function validateHTML(htmlString) {
+        return new Promise((resolve, reject) => {
+            const req = new XMLHttpRequest();
+
+            function veio() {
+                console.log(req);
+                resolve(req.responseText);
+            }
+
+            function abortado() {
+                console.log(req);
+                reject(new PularTeste("A requisição ao validador foi cancelada."));
+            }
+
+            function deuPau() {
+                console.log(req);
+                if (req.status === 0) {
+                    reject(new PularTeste("Não foi possível realizar a requisição ao validador. Talvez você não esteja conectado à internet?"));
+                } else {
+                    reject(new PularTeste(`O validador devolveu uma resposta ${req.status} com o seguinte conteúdo: ${req.responseText}.`));
+                }
+            }
+
+            req.addEventListener("load", veio);
+            req.addEventListener("error", deuPau);
+            req.addEventListener("abort", abortado);
+            req.open("POST", "https://validator.w3.org/nu/");
+            req.setRequestHeader("Content-Type", "text/html");
+            req.send(htmlString);
+        });
     }
-})(-1);
+
+    let source;
+
+    async function downloadMe() {
+        try {
+            source = await fetch(document.location.href).then(response => response.text());
+        } catch (e1) {
+            const m1 = e1 instanceof Error ? `[${determinarTipo(e1)}] ${e1.message}` : "" + e1;
+            try {
+                source = await fetch("http://localhost:5000/?src=" + document.location.href.replace("file:///", "")).then(response => response.text());
+            } catch (e2) {
+                const m2 = e2 instanceof Error ? `[${determinarTipo(e2)}] ${e2.message}` : "" + e2;
+                throw new PularTeste(``
+                        + `Resultado obtido:`
+                        + `<span class="testefw-destaque testefw-bloco">`
+                        + `Não foi possível obter o código-fonte da página.<br>`
+                        + `Talvez o seu navegador não permita isso e o arquivo getsrc.py também não esteja rodando.<br>`
+                        + `Erro específico (tentativa de pegar o código-fonte diretamente): ${m1}<br>`
+                        + `Erro específico (tentativa de pegar o código-fonte por meio do getsrc.py): ${m2}`
+                        + `</span>`
+                );
+            }
+        }
+    }
+
+    async function validateMe() {
+        try {
+           return await validateHTML(source);
+        } catch (e) {
+            if (e instanceof PularTeste) throw e;
+            const m = e instanceof Error ? `[${determinarTipo(e)}] ${e.message}` : "" + e;
+            throw new PularTeste(`Não foi possível chamar o site de validação da página: ${m}`);
+        }
+    }
+
+    function validouHTML() {
+        return {
+            testar: valorObtido => {
+                if (!valorObtido.includes('<p class="success">The document validates according to the specified schema(s).</p>')) {
+                    throw new ErroFormatado(Utilitarios.escapeHtml('<p class="success">The document validates according to the specified schema(s).</p>'), valorObtido, ["", ""]);
+                }
+            },
+            esperado: `Resultado esperado: ${Utilitarios.escapeHtml('<p class="success">The document validates according to the specified schema(s).</p>')}.`
+        };
+    }
+
+    function reduzirEspacos(a) {
+        a = a.replaceAll("\t", " ").replaceAll("\r", " ").replaceAll("\n", " ");
+        let b;
+        do {
+            b = a;
+            a = a.replaceAll("  ", " ");
+        } while (a !== b);
+        return a.replaceAll("> <", "><").replaceAll("script> ", "script>").replaceAll(" <script", "<script").replaceAll(" </script", "</script");
+    }
+
+    const headStr = ''
+            + '<head>'
+            + '<meta charset="utf-8">'
+            + '<title>Exercícios HTML5</title>'
+            + '<link rel="stylesheet" href="lib/testefw.css">'
+            + '<link rel="stylesheet" href="ac1.css">'
+            + '<script src="lib/testefw.js" defer></script>'
+            + '<script src="ac1-teste.js" defer></script>'
+            + `<script>${reduzirEspacos(dadosDosAlunos.toString()).trim()}</script>`
+            + '</head>';
+
+    function headSource() {
+        const x = source.indexOf("<head>");
+        const y = source.indexOf("</head>");
+        if (x < 0 || y < 0) return "<erro>";
+        return reduzirEspacos(source.substring(x, y + "</head>".length));
+    }
+
+    grupo("HTML válido", "Verifica se o HTML da página é válido").maximo(0.4).testes([
+        teste("Consegue obter a estrutura do HTML.", async () => await downloadMe()            , naoDeuErro()                          , undefined     ),
+        teste("Não há erros na estrutura do HTML." , async () => await validateMe()            , validouHTML()                         , () => !!source),
+        teste("O elemento <head> está ok."         , () => Utilitarios.escapeHtml(headSource()), igual(Utilitarios.escapeHtml(headStr)), () => !!source)
+    ]);
+});
